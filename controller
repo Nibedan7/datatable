@@ -1,0 +1,65 @@
+using System.Xml.Linq;
+using CdplATS.UI.Models;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CdplATS.UI.Controllers
+{
+    public class HoliDayListController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetHolidays()
+        {
+            List<HoliDay> holidays = new List<HoliDay>
+            {
+                new HoliDay { Name = "New Year", Location = "Worldwide", StartDate = new DateTime(2025, 1, 1), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Christmas", Location = "Worldwide", StartDate = new DateTime(2025, 12, 25), Duration =   1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Easter", Location = "Worldwide", StartDate = new DateTime(2025, 4, 20), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Independence Day", Location = "USA", StartDate = new DateTime(2025, 7, 4), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Labor Day", Location = "USA", StartDate = new DateTime(2025, 9, 1), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Thanksgiving", Location = "USA", StartDate = new DateTime(2025, 11, 27), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Boxing Day", Location = "Canada, UK, Australia", StartDate = new DateTime(2025, 12, 26), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Diwali", Location = "India", StartDate = new DateTime(2025, 11, 3), Duration = 5, WorkingOnHoliday = false },
+                new HoliDay { Name = "Chinese New Year", Location = "China", StartDate = new DateTime(2025, 2, 17), Duration = 15, WorkingOnHoliday = false }
+            };
+
+            return Json(new { data = holidays });
+        }
+        [HttpGet]
+        public IActionResult AddHoliday()
+        {
+            HoliDay holiDay = new HoliDay();
+            return PartialView("/Views/HoliDayList/AddHoliday.cshtml", holiDay);
+
+        }
+
+        [HttpGet]
+        public IActionResult EditHoliday(string name)
+        {
+            List<HoliDay> holidays = new List<HoliDay>
+            {
+                new HoliDay { Name = "New Year", Location = "Worldwide", StartDate = new DateTime(2025, 1, 1), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Christmas", Location = "Worldwide", StartDate = new DateTime(2025, 12, 25), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Easter", Location = "Worldwide", StartDate = new DateTime(2025, 4, 20), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Independence Day", Location = "USA", StartDate = new DateTime(2025, 7, 4), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Labor Day", Location = "USA", StartDate = new DateTime(2025, 9, 1), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Thanksgiving", Location = "USA", StartDate = new DateTime(2025, 11, 27), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Boxing Day", Location = "Canada, UK, Australia", StartDate = new DateTime(2025, 12, 26), Duration = 1, WorkingOnHoliday = false },
+                new HoliDay { Name = "Diwali", Location = "India", StartDate = new DateTime(2025, 11, 3), Duration = 5, WorkingOnHoliday = false },
+                new HoliDay { Name = "Chinese New Year", Location = "China", StartDate = new DateTime(2025, 2, 17), Duration = 15, WorkingOnHoliday = false }
+            };
+
+            var holidayToEdit = holidays.FirstOrDefault(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            if (holidayToEdit!= null)
+            {
+                return PartialView("/Views/HoliDayList/AddHoliday.cshtml",holidayToEdit);
+            }
+            return NotFound("Holiday not found");
+        }
+    }
+}
+ 

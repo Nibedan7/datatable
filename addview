@@ -1,0 +1,82 @@
+@model HoliDay
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper AuthoringTagHelpers.TagHelpers.EmailTagHelper, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "Update Holiday";
+}
+
+@* <script src="~/js/jquery.min.js"></script> *@
+<link href="~/css/toastr.css" rel="stylesheet" />
+<script src="~/js/toaster.js"></script>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+
+
+
+<form id="updateHolidayForm" method="post" role="form">
+    <div class="hs-overlay-open:mt-7 ti-modal-box mt-0 ease-out md:!max-w-2xl md:w-full m-3 md:mx-auto">
+
+        <div class="ti-modal-content">
+            <div class="ti-modal-header">
+              
+                
+            </div>
+            <div class="ti-modal-body">
+                <div class="grid grid-cols-12 gap-2">
+                    
+                    <div class="xl:col-span-6 col-span-12">
+                        <label for="Name" class="form-label">Name</label>
+                        <input type="text" class="form-control" asp-for="Name" name="Name" value="@Model.Name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="xl:col-span-6 col-span-12">
+                        <label for="Location" class="form-label">Location</label>
+                        <input type="text" class="form-control" asp-for="Location" name="Location" value="@Model.Location">
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                   
+                   
+
+                    <div class="xl:col-span-6 col-span-12">
+                        <label for="StartDate" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" asp-for="StartDate" name="StartDate"
+                               max="@DateTime.Now.AddYears(50).ToString("yyyy-MM-dd")"
+                               value="@Model.StartDate.ToString("yyyy-MM-dd")">
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="xl:col-span-6 col-span-12">
+                        <label for="Duration" class="form-label">Duration</label>
+                        <input type="number" class="form-control" asp-for="Duration" name="Duration"  value="@Model.Duration"  id="Duration">
+                        <span asp-validation-for="Duration" class="text-danger"></span>
+                    </div>
+
+
+
+
+                    <div class="xl:col-span-6 col-span-12">
+                        <label for="WorkingOnHoliDay" class="form-label">WorkingOnHoliDay</label>
+                        <input type="text" class="form-control" asp-for="WorkingOnHoliday" name="WorkingOnHoliDay"name="WorkingOnHoliday" placeholder="No" value="@(Model.WorkingOnHoliday?"yes":"No")"  id="WorkingOnHoliDay">
+                        <span asp-validation-for="WorkingOnHoliday" class="text-danger"></span>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="ti-modal-footer">
+                <a type="button" class="hs-dropdown-toggle ti-btn ti-btn-light" data-hs-overlay="#create_User" asp-controller="HolidayList" asp-action="Index"> Cancel </a>
+                <button  type="submit" class="ti-btn ti-btn-primary-full">Save</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial.cshtml" />
+}
