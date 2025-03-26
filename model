@@ -1,0 +1,23 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace CdplATS.UI.Models
+{
+    public class HoliDay
+    {
+        [Required]
+        public string Name { get; set; }
+        [Required]
+
+        public string Location { get; set; }
+        [Required]
+
+        public DateTime StartDate { get; set; }
+        [Required]
+
+        public int Duration { get; set; }
+        [Required]
+
+        public bool WorkingOnHoliday { get; set; }
+
+    }
+}
